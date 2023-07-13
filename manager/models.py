@@ -27,8 +27,11 @@ class Worker(AbstractUser):
         verbose_name_plural = "workers"
         ordering = ["username"]
 
-    def __str__(self):
-        return f"{self.username} ({self.first_name} {self.last_name} , position: {self.position.name})"
+    def __str__(self) -> str:
+        return (
+            f"{self.username} ({self.first_name} {self.last_name} , "
+            f"position: {self.position.name})"
+        )
 
 
 class TaskType(models.Model):
