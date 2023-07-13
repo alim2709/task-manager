@@ -5,6 +5,7 @@ from manager.views import (
     WorkerListView,
     WorkerDetailView,
     TaskListView,
+    TaskDetailView,
 )
 
 urlpatterns = [
@@ -23,6 +24,11 @@ urlpatterns = [
         "tasks/",
         TaskListView.as_view(),
         name="task-list"
+    ),
+    path(
+        "tasks/<int:pk>",
+        TaskDetailView.as_view(),
+        name="task-detail"
     )
 ]
 

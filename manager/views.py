@@ -42,6 +42,12 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     template_name = "manager/task_list.html"
 
 
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Task
+    queryset = Task.objects.all().select_related("task_type")
+    template_name = "manager/task_detail.html"
+
+
 
 
 
