@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 
 class Position(models.Model):
@@ -26,6 +27,9 @@ class Worker(AbstractUser):
         verbose_name = "worker"
         verbose_name_plural = "workers"
         ordering = ["username"]
+
+    def get_absolute_url(self):
+        return reverse("manager:worker-detail", kwargs={"pk": self.pk})
 
     def __str__(self) -> str:
         return (
