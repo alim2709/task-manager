@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for worker in worker_list %}
+    <h1>{{ worker.username }}</h1>
+    <p>{{ worker.position.name }}</p>
+    <p>{{ worker.first_name }}  {{ worker.last_name }}</p>
+    <p>{{ worker.tasks.all }}</p>
+
+  {% endfor %}
+
+{% endblock %}

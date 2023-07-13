@@ -1,6 +1,6 @@
 from django.urls import path
 
-from manager.views import index, WorkerListView
+from manager.views import index, WorkerListView, WorkerDetailView
 
 urlpatterns = [
     path("", index, name="index"),
@@ -9,7 +9,11 @@ urlpatterns = [
         WorkerListView.as_view(),
         name="worker-list"
     ),
-    path()
+    path(
+        "workers/<int:pk>",
+        WorkerDetailView.as_view(),
+        name="worker-detail"
+    )
 ]
 
 app_name = "manager"
