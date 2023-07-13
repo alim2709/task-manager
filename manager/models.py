@@ -6,7 +6,8 @@ from django.urls import reverse
 class Position(models.Model):
     name = models.CharField(
         max_length=60,
-        unique=True
+        unique=True,
+        null=True
     )
 
     class Meta:
