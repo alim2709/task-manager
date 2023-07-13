@@ -1,0 +1,28 @@
+{% extends "base-presentation.html" %}
+
+{% block title %}
+  Task Detail
+{% endblock %}
+
+{% block content %}
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1>{{ task.name }}</h1>
+  <ul>
+  <p><strong>Description:</strong></p>
+  <p>{{ task.description}}</p>
+  <p><strong>Deadline:</strong></p>
+  <p>{{ task.deadline }}</p>
+  <p><strong>Type:</strong></p>
+  <p>{{ task.task_type }}</p>
+  <p><strong>Team in this task:</strong></p>
+  </ul>
+  {% for worker in task.assignees.all %}
+    <ul>
+    <li><strong>Username: </strong>{{ worker.username }}   <strong>Position: </strong>{{ worker.position.name }}</li>
+    </ul>
+  {% endfor %}
+
+{% endblock %}

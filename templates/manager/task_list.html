@@ -23,9 +23,13 @@
     {% for task in task_list %}
     <tr>
         <td>{{ task.id }}</td>
-        <td><a href="#">{{ task.name }} </a></td>
+        <td><a href="{{ task.get_absolute_url }}">{{ task.name }} </a></td>
         <td>{{ task.deadline }}</td>
-        <td>{{ task.is_completed }}</td>
+        <td>{% if task.is_completed %}
+          Yes
+          {% else %}
+          No
+        {% endif %} </td>
         <td>{{ task.task_type.name }}</td>
   </tr>
   {% endfor %}
