@@ -1,0 +1,36 @@
+{% extends "base-presentation.html" %}
+{% block title %}
+  Tasks
+{% endblock %}
+{% block content %}
+  <br>
+  <br>
+  <br>
+  <br>
+  <h2>
+      Task List
+    </h2>
+  {% if task_list %}
+  <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Deadline</th>
+        <th>Is completed</th>
+        <th>Type</th>
+      </tr>
+
+    {% for task in task_list %}
+    <tr>
+        <td>{{ task.id }}</td>
+        <td><a href="#">{{ task.name }} </a></td>
+        <td>{{ task.deadline }}</td>
+        <td>{{ task.is_completed }}</td>
+        <td>{{ task.task_type.name }}</td>
+  </tr>
+  {% endfor %}
+    </table>
+    {% else %}
+    <p>There are no tasks in the service.</p>
+  {% endif %}
+{% endblock %}
