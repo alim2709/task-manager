@@ -76,5 +76,10 @@ class Task(models.Model):
     class Meta:
         ordering = ["deadline", "name"]
 
+
+    def get_absolute_url(self):
+        return reverse("manager:task-detail", kwargs={"pk": self.pk})
+
+
     def __str__(self) -> str:
         return f"Task: {self.name}, priority of task : {self.priority}"
