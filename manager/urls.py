@@ -1,6 +1,11 @@
 from django.urls import path
 
-from manager.views import index, WorkerListView, WorkerDetailView
+from manager.views import (
+    index,
+    WorkerListView,
+    WorkerDetailView,
+    TaskListView,
+)
 
 urlpatterns = [
     path("", index, name="index"),
@@ -13,6 +18,11 @@ urlpatterns = [
         "workers/<int:pk>",
         WorkerDetailView.as_view(),
         name="worker-detail"
+    ),
+    path(
+        "tasks/",
+        TaskListView.as_view(),
+        name="task-list"
     )
 ]
 
