@@ -1,0 +1,33 @@
+{% extends "base-presentation.html" %}
+
+{% block content %}
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1>Username: {{ worker.username }}</h1>
+  <p><strong>First name:</strong> {{ worker.first_name }}</p>
+  <p><strong>Last name:</strong> {{ worker.last_name }}</p>
+  <p><strong>Position:</strong> {{ worker.position.name }}</p>
+  <div>
+    <h4>Completed tasks:</h4>
+    {% for task in worker.tasks.all %}
+      {% if task.is_completed %}
+        <p>{{ task.name }}</p>
+        {% else %}
+        <p>No completed task!</p>
+      {% endif %}
+    {% empty %}
+        <p>No tasks!</p>
+    {% endfor %}
+    <h4>Tasks in process now:</h4>
+      {% for task in worker.tasks.all %}
+        {% if not task.is_complited %}
+          <p>{{ task.name }}</p>
+          <p><strong>Deadline: {{ task.deadline }}</strong></p>
+        {% endif %}
+        {% empty %}
+          <p>No tasks!</p>
+      {% endfor %}
+  </div>
+{% endblock %}
