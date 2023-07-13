@@ -36,6 +36,11 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "manager/worker_detail.html"
 
 
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    paginate_by = 5
+    template_name = "manager/task_list.html"
+
 
 
 
