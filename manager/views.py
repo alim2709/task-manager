@@ -1,8 +1,10 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 
+from manager.forms import SignUpForm
 from manager.models import Worker, Task
 
 
@@ -22,6 +24,28 @@ def index(request):
     }
 
     return render(request, "manager/index.html", context=context)
+
+
+def register_user(request):
+    msg = None
+    success = False
+
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get("username")
+            raw_password = form.cleaned_data.get("password1")
+            user = authenticate(username=username, password=raw_password)
+
+            msg = 'User created - please <a href="/login">login</a>.'
+            success = True
+        else:
+            msg = 'Form is not valid'
+    else:
+        form = SignUpForm()
+
+    return render(request, "registration/register.html", {"form": form, "msg": msg, "success": success})
 
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):

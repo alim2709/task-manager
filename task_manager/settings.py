@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "crispy_forms",
     "crispy_bootstrap5",
-    "manager"
+    "manager",
 ]
 
 MIDDLEWARE = [
@@ -141,3 +141,5 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ASSETS_ROOT = '/static/assets'
+
+LOGIN_REDIRECT_URL = "/"

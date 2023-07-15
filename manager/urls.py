@@ -2,14 +2,17 @@ from django.urls import path
 
 from manager.views import (
     index,
+    register_user,
     WorkerListView,
     WorkerDetailView,
     TaskListView,
     TaskDetailView,
+
 )
 
 urlpatterns = [
     path("", index, name="index"),
+    path("register/", register_user, name="register"),
     path(
         "workers/",
         WorkerListView.as_view(),

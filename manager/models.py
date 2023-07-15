@@ -7,7 +7,7 @@ class Position(models.Model):
     name = models.CharField(
         max_length=60,
         unique=True,
-        null=True
+        default="worker"
     )
 
     class Meta:
@@ -22,6 +22,7 @@ class Worker(AbstractUser):
         Position,
         on_delete=models.CASCADE,
         related_name="workers",
+        null=True
     )
 
     class Meta:
