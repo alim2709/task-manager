@@ -1,12 +1,12 @@
-from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
 from manager.forms import SignUpForm, TaskForm
-from manager.models import Worker, Task, Position
+from manager.models import Worker, Task, Position, TaskType
 
 
 @login_required
@@ -15,13 +15,11 @@ def index(request):
     num_workers = Worker.objects.count()
     num_tasks = Task.objects.count()
     task_is_done_true = Task.objects.filter(is_completed=True).count()
-    task_is_done_false = Task.objects.filter(is_completed=False).count()
 
     context = {
         "num_workers": num_workers,
         "num_tasks": num_tasks,
         "task_is_done_true": task_is_done_true,
-        "task_is_done_false": task_is_done_false
     }
 
     return render(request, "manager/index.html", context=context)
@@ -104,3 +102,31 @@ class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "manager/position_create.html"
 
 
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
+    model = TaskType
+    paginate_by = 5
+    context_object_name = "task_type_list"
+    template_name = "manager/task_type_list.html"
+
+
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("manager:task-type-list")
+    template_name = "manager/task_type_form.html"
+
+
+class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = TaskType
+    fields = "__all__"
+    context_object_name = "task_type_form"
+    success_url = reverse_lazy("manager:task-type-list")
+    template_name = "manager/task_type_form.html"
+
+
+class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = TaskType
+    fields = "__all__"
+    context_object_name = "task_type_delete"
+    success_url = reverse_lazy("manager:task-type-list")
+    template_name = "manager/task_type_confirm_delete.html"
