@@ -6,7 +6,14 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
-from manager.forms import SignUpForm, TaskForm, WorkerSearchForm, TaskSearchForm, TaskTypeSearchForm, PositionSearchForm
+from manager.forms import (
+    SignUpForm,
+    TaskForm,
+    WorkerSearchForm,
+    TaskSearchForm,
+    TaskTypeSearchForm,
+    PositionSearchForm
+)
 from manager.models import Worker, Task, Position, TaskType
 
 
@@ -79,6 +86,16 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "manager/worker_detail.html"
 
 
+class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Worker
+    fields = ["username", "first_name", "last_name", "position"]
+    template_name = "manager/worker_update.html"
+
+    def get_success_url(self):
+        worker_id = self.kwargs["pk"]
+        return reverse_lazy("manager:worker-detail", kwargs={"pk": worker_id})
+
+
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     paginate_by = 5
@@ -95,7 +112,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Task.objects.all().select_related("task_type")
+        queryset = Task.objects.all().select_related("task_type").order_by("is_completed")
         form = TaskSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(name__icontains=form.cleaned_data["name"])
@@ -120,6 +137,13 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("manager:task-list")
 
 
+class CompletedTaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    queryset = Task.objects.filter(is_completed=True)
+    paginate_by = 5
+    template_name = "manager/completed_task_list.html"
+
+@login_required
 def task_completed_true(request, pk):
     task = get_object_or_404(Task, pk=pk)
     if not task.is_completed:
@@ -181,12 +205,11 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Task.objects.all()
+        queryset = TaskType.objects.all()
         form = TaskTypeSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(name__icontains=form.cleaned_data["name"])
         return queryset
-
 
 
 class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
@@ -210,3 +233,16 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     context_object_name = "task_type_delete"
     success_url = reverse_lazy("manager:task-type-list")
     template_name = "manager/task_type_confirm_delete.html"
+
+
+@login_required
+def toggle_assign_to_task(request, pk):
+    worker = get_object_or_404(Worker, id=request.user.id)
+    task = get_object_or_404(Task, pk=pk)
+    if (
+            task in worker.tasks.all()
+    ):  # probably could check if car exists
+        worker.tasks.remove(pk)
+    else:
+        worker.tasks.add(pk)
+    return HttpResponseRedirect(reverse_lazy("manager:task-detail", args=[pk]))

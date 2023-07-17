@@ -27,7 +27,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = "__all__"
+        fields = ["name", "description", "deadline", "priority", "task_type", "assignees"]
 
 
 class TaskSearchForm(forms.Form):

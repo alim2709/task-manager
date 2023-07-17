@@ -5,17 +5,21 @@ from manager.views import (
     register_user,
     WorkerListView,
     WorkerDetailView,
+    WorkerUpdateView,
     TaskListView,
     TaskDetailView,
     TaskCreateView,
     TaskUpdateView,
     TaskDeleteView,
+    CompletedTaskListView,
     PositionListView,
     PositionCreateView,
     TaskTypeListView,
     TaskTypeCreateView,
     TaskTypeUpdateView,
-    TaskTypeDeleteView, task_completed_true,
+    TaskTypeDeleteView,
+    task_completed_true,
+    toggle_assign_to_task,
 )
 
 urlpatterns = [
@@ -30,6 +34,11 @@ urlpatterns = [
         "workers/<int:pk>",
         WorkerDetailView.as_view(),
         name="worker-detail"
+    ),
+    path(
+        "workers/<int:pk>/update/",
+        WorkerUpdateView.as_view(),
+        name="worker-update"
     ),
     path(
         "tasks/",
@@ -60,6 +69,16 @@ urlpatterns = [
         "tasks/<int:pk>/delete/",
         TaskDeleteView.as_view(),
         name="task-delete"
+    ),
+    path(
+        "tasks/completed_tasks/",
+        CompletedTaskListView.as_view(),
+        name="completed-tasks"
+    ),
+    path(
+        "tasks/<int:pk>/toggle-assign/",
+        toggle_assign_to_task,
+        name="toggle-task-assign",
     ),
     path(
         "positions/",

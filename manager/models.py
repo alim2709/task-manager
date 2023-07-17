@@ -74,7 +74,7 @@ class Task(models.Model):
     assignees = models.ManyToManyField(Worker, related_name="tasks")
 
     class Meta:
-        ordering = ["deadline", "name"]
+        ordering = ["deadline", "name", "is_completed"]
 
     def get_absolute_url(self):
         return reverse("manager:task-detail", kwargs={"pk": self.pk})
