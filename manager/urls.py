@@ -14,6 +14,7 @@ from manager.views import (
     CompletedTaskListView,
     PositionListView,
     PositionCreateView,
+    PositionUpdateView,
     TaskTypeListView,
     TaskTypeCreateView,
     TaskTypeUpdateView,
@@ -89,6 +90,11 @@ urlpatterns = [
         "positions/create/",
         PositionCreateView.as_view(),
         name="position-create"
+    ),
+    path(
+        "positions/<int:pk>/update/",
+        PositionUpdateView.as_view(),
+        name="position-update"
     ),
     path(
         "task_types/",

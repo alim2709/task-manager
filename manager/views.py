@@ -186,8 +186,14 @@ class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     model = Position
     form_class = PositionForm
     success_url = reverse_lazy("manager:position-list")
-    template_name = "manager/position_create.html"
+    template_name = "manager/position_form.html"
 
+
+class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Position
+    fields = "__all__"
+    success_url = reverse_lazy("manager:position-list")
+    template_name = "manager/position_form.html"
 
 class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
