@@ -12,7 +12,7 @@ from manager.forms import (
     WorkerSearchForm,
     TaskSearchForm,
     TaskTypeSearchForm,
-    PositionSearchForm
+    PositionSearchForm, PositionForm
 )
 from manager.models import Worker, Task, Position, TaskType
 
@@ -143,6 +143,7 @@ class CompletedTaskListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
     template_name = "manager/completed_task_list.html"
 
+
 @login_required
 def task_completed_true(request, pk):
     task = get_object_or_404(Task, pk=pk)
@@ -183,7 +184,7 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
 
 class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     model = Position
-    fields = "__all__"
+    form_class = PositionForm
     success_url = reverse_lazy("manager:position-list")
     template_name = "manager/position_create.html"
 
