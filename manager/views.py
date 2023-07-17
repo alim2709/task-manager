@@ -195,6 +195,12 @@ class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("manager:position-list")
     template_name = "manager/position_form.html"
 
+class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Position
+    fields = "__all__"
+    success_url = reverse_lazy("manager:position-list")
+    template_name = "manager/position_confirm_delete.html"
+
 class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
     paginate_by = 5
