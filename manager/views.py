@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -81,6 +82,14 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy("manager:task-list")
+
+
+def task_completed_true(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if not task.is_completed:
+        task.is_completed = True
+        task.save()
+    return HttpResponseRedirect(reverse_lazy("manager:task-detail", args=[pk]))
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):

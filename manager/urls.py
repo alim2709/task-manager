@@ -15,7 +15,7 @@ from manager.views import (
     TaskTypeListView,
     TaskTypeCreateView,
     TaskTypeUpdateView,
-    TaskTypeDeleteView,
+    TaskTypeDeleteView, task_completed_true,
 )
 
 urlpatterns = [
@@ -40,6 +40,11 @@ urlpatterns = [
         "tasks/<int:pk>",
         TaskDetailView.as_view(),
         name="task-detail"
+    ),
+    path(
+        "tasks/<int:pk>/task-complete",
+        task_completed_true,
+        name="task-complete"
     ),
     path(
         "tasks/create/",

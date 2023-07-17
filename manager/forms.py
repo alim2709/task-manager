@@ -18,8 +18,7 @@ class SignUpForm(UserCreationForm):
 
 
 class TaskForm(forms.ModelForm):
-
-    deadline = forms.DateTimeField(label="Date", required=True, widget=NumberInput(attrs={'type':'date'}))
+    deadline = forms.DateTimeField(label="Date", required=True, widget=NumberInput(attrs={'type': 'date'}))
 
     assignees = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),
