@@ -39,6 +39,32 @@ class Worker(AbstractUser):
         )
 
 
+class Team(models.Model):
+    name = models.CharField(max_length=255)
+    members = models.ManyToManyField(Worker, related_name="teams")
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(max_length=600)
+    is_completed = models.BooleanField(default=False)
+    deadline = models.DateField()
+    team = models.ManyToManyField(Team, related_name="projects")
+
+    class Meta:
+        ordering = ["is_completed", "deadline", "name"]
+
+
+    def __str__(self):
+        return self.name
+
+
 class TaskType(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
@@ -72,7 +98,14 @@ class Task(models.Model):
         null=True,
         related_name="tasks"
     )
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="tasks"
+    )
     assignees = models.ManyToManyField(Worker, related_name="tasks")
+
 
     class Meta:
         ordering = ["deadline", "name", "is_completed"]
@@ -82,3 +115,8 @@ class Task(models.Model):
 
     def __str__(self) -> str:
         return f"Task: {self.name}, priority of task : {self.priority}"
+
+
+
+
+
