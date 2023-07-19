@@ -17,9 +17,12 @@ from manager.views import (
     PositionUpdateView,
     PositionDeleteView,
     TaskTypeListView,
+    TaskTypeDetailView,
     TaskTypeCreateView,
     TaskTypeUpdateView,
     TaskTypeDeleteView,
+    TeamListView,
+    TeamDetailView,
     task_completed_true,
     toggle_assign_to_task,
 )
@@ -108,6 +111,11 @@ urlpatterns = [
         name="task-type-list"
     ),
     path(
+        "task_types/<int:pk>",
+        TaskTypeDetailView.as_view(),
+        name="task-type-detail"
+    ),
+    path(
         "task_types/create/",
         TaskTypeCreateView.as_view(),
         name="task-type-create"
@@ -121,6 +129,16 @@ urlpatterns = [
         "task_types/<int:pk>/delete/",
         TaskTypeDeleteView.as_view(),
         name="task-type-delete"
+    ),
+    path(
+        "teams/",
+        TeamListView.as_view(),
+        name="team-list"
+    ),
+    path(
+        "teams/<int:pk>",
+        TeamDetailView.as_view(),
+        name="team-detail"
     )
 ]
 

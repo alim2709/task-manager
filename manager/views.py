@@ -14,7 +14,7 @@ from manager.forms import (
     TaskTypeSearchForm,
     PositionSearchForm, PositionForm
 )
-from manager.models import Worker, Task, Position, TaskType
+from manager.models import Worker, Task, Position, TaskType, Team
 
 
 @login_required
@@ -195,11 +195,13 @@ class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("manager:position-list")
     template_name = "manager/position_form.html"
 
+
 class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Position
     fields = "__all__"
     success_url = reverse_lazy("manager:position-list")
     template_name = "manager/position_confirm_delete.html"
+
 
 class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
@@ -223,6 +225,13 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
         if form.is_valid():
             return queryset.filter(name__icontains=form.cleaned_data["name"])
         return queryset
+
+
+class TaskTypeDetailView(LoginRequiredMixin, generic.DetailView):
+    model = TaskType
+    queryset = TaskType.objects.all()
+    context_object_name = "task_type_detail"
+    template_name = "manager/task_type_detail.html"
 
 
 class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
@@ -259,3 +268,15 @@ def toggle_assign_to_task(request, pk):
     else:
         worker.tasks.add(pk)
     return HttpResponseRedirect(reverse_lazy("manager:task-detail", args=[pk]))
+
+
+class TeamListView(LoginRequiredMixin, generic.ListView):
+    model = Team
+    paginate_by = 5
+    template_name = "manager/team_list.html"
+
+
+class TeamDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Team
+    queryset = Team.objects.all().prefetch_related("members__teams__projects")
+    template_name = "manager/team_detail.html"
