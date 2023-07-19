@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.forms import NumberInput
 from django.utils import timezone
 
-from manager.models import Worker, Task, Position
+from manager.models import Worker, Task, Position, Project
 
 
 class SignUpForm(UserCreationForm):
