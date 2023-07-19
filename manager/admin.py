@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Worker, Task, Position, TaskType
+from .models import Worker, Task, Position, TaskType, Project, Team
 
 
 @admin.register(Worker)
@@ -31,5 +31,12 @@ class TaskAdmin(admin.ModelAdmin):
     list_filter = ("task_type",)
 
 
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    search_fields = ("deadline", "name")
+    list_filter = ("team",)
+
+
 admin.site.register(Position)
 admin.site.register(TaskType)
+admin.site.register(Team)
