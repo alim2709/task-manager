@@ -60,7 +60,6 @@ class Project(models.Model):
     class Meta:
         ordering = ["is_completed", "deadline", "name"]
 
-
     def __str__(self):
         return self.name
 
@@ -106,7 +105,6 @@ class Task(models.Model):
     )
     assignees = models.ManyToManyField(Worker, related_name="tasks")
 
-
     class Meta:
         ordering = ["deadline", "name", "is_completed"]
 
@@ -115,8 +113,3 @@ class Task(models.Model):
 
     def __str__(self) -> str:
         return f"Task: {self.name}, priority of task : {self.priority}"
-
-
-
-
-
