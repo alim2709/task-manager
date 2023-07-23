@@ -58,3 +58,44 @@ class PositionModelTest(TestCase):
         self.assertFalse(
             Position.objects.filter(id=position.id).exists()
         )
+
+
+class WorkerModelTest(TestCase):
+    def setUp(self) -> None:
+        self.worker = get_user_model().objects.create_user(
+            username="test_worker",
+            password="worker1qazcde3",
+            first_name="Test First",
+            last_name="Test Last",
+        )
+        self.client.force_login(self.worker)
+
+    def test_worker_str(self) -> None:
+        self.assertEquals(
+            str(self.worker),
+            f"{self.worker.username} ({self.worker.first_name} "
+            f"{self.worker.last_name})"
+        )
+
+    def test_create_worker_with_position(self) -> None:
+        username = "test_worker_create"
+        password = "worker1qazcde3"
+        position = Position.objects.create(
+            name="Test Position",
+        )
+
+        worker = get_user_model().objects.create_user(
+            username=username,
+            password=password,
+            position=position,
+        )
+
+        self.assertEquals(worker.username, username)
+        self.assertTrue(worker.check_password(password))
+        self.assertEquals(worker.position, position)
+
+    def test_worker_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.worker.get_absolute_url(),
+            "/workers/1/"
+        )
