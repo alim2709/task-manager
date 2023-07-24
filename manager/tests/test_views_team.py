@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from manager.models import TaskType, Task, Team
+from manager.models import Team
 
 TEAM_LIST_URL = reverse("manager:team-list")
 
