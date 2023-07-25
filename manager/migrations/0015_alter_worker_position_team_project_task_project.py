@@ -6,45 +6,78 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('manager', '0014_alter_task_task_type'),
+        ("manager", "0014_alter_task_task_type"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='worker',
-            name='position',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='workers', to='manager.position'),
+            model_name="worker",
+            name="position",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="workers",
+                to="manager.position",
+            ),
         ),
         migrations.CreateModel(
-            name='Team',
+            name="Team",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('members', models.ManyToManyField(related_name='teams', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                (
+                    "members",
+                    models.ManyToManyField(
+                        related_name="teams", to=settings.AUTH_USER_MODEL
+                    ),
+                ),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Project',
+            name="Project",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('description', models.TextField(max_length=600)),
-                ('is_completed', models.BooleanField(default=False)),
-                ('deadline', models.DateField()),
-                ('team', models.ManyToManyField(related_name='projects', to='manager.team')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("description", models.TextField(max_length=600)),
+                ("is_completed", models.BooleanField(default=False)),
+                ("deadline", models.DateField()),
+                (
+                    "team",
+                    models.ManyToManyField(related_name="projects", to="manager.team"),
+                ),
             ],
             options={
-                'ordering': ['is_completed', 'deadline', 'name'],
+                "ordering": ["is_completed", "deadline", "name"],
             },
         ),
         migrations.AddField(
-            model_name='task',
-            name='project',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='tasks', to='manager.project'),
+            model_name="task",
+            name="project",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="tasks",
+                to="manager.project",
+            ),
         ),
     ]

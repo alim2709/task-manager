@@ -5,15 +5,20 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('manager', '0019_remove_project_team_project_team'),
+        ("manager", "0019_remove_project_team_project_team"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='task',
-            name='project',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='tasks', to='manager.project'),
+            model_name="task",
+            name="project",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="tasks",
+                to="manager.project",
+            ),
         ),
     ]

@@ -5,15 +5,19 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('manager', '0013_alter_task_options'),
+        ("manager", "0013_alter_task_options"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='task',
-            name='task_type',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='tasks', to='manager.tasktype'),
+            model_name="task",
+            name="task_type",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="tasks",
+                to="manager.tasktype",
+            ),
         ),
     ]

@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('manager', '0010_alter_position_name'),
+        ("manager", "0010_alter_position_name"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='task',
-            name='priority',
-            field=models.CharField(default='Medium', max_length=6),
+            model_name="task",
+            name="priority",
+            field=models.CharField(default="Medium", max_length=6),
         ),
     ]

@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('manager', '0005_alter_position_name'),
+        ("manager", "0005_alter_position_name"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='position',
-            name='name',
-            field=models.CharField(blank=True, default=None, max_length=60, null=True, unique=True),
+            model_name="position",
+            name="name",
+            field=models.CharField(
+                blank=True, default=None, max_length=60, null=True, unique=True
+            ),
         ),
     ]

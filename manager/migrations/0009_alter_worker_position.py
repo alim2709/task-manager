@@ -5,15 +5,19 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('manager', '0008_alter_position_name_alter_worker_position'),
+        ("manager", "0008_alter_position_name_alter_worker_position"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='worker',
-            name='position',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='workers', to='manager.position'),
+            model_name="worker",
+            name="position",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="workers",
+                to="manager.position",
+            ),
         ),
     ]

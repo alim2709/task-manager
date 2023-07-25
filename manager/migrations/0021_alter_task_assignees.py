@@ -5,15 +5,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('manager', '0020_alter_task_project'),
+        ("manager", "0020_alter_task_project"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='task',
-            name='assignees',
-            field=models.ManyToManyField(null=True, related_name='tasks', to=settings.AUTH_USER_MODEL),
+            model_name="task",
+            name="assignees",
+            field=models.ManyToManyField(
+                null=True, related_name="tasks", to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]
