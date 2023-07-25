@@ -12,10 +12,7 @@ class PublicTaskListTest(TestCase):
         response = self.client.get(PROJECT_LIST_URL)
 
         self.assertNotEquals(response.status_code, 200)
-        self.assertRedirects(
-            response,
-            "/accounts/login/?next=/projects/"
-        )
+        self.assertRedirects(response, "/accounts/login/?next=/projects/")
 
 
 class PrivateTaskListTest(TestCase):
@@ -50,10 +47,7 @@ class PrivateTaskListTest(TestCase):
         response = self.client.get(PROJECT_LIST_URL)
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(
-            response,
-            "manager/project_list.html"
-        )
+        self.assertTemplateUsed(response, "manager/project_list.html")
 
     def test_correct_pagination_on_first_page(self) -> None:
         response = self.client.get(PROJECT_LIST_URL)

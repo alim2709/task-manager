@@ -34,7 +34,7 @@ class TaskProjectFormTest(TestCase):
             get_user_model().objects.create_user(
                 username=f"test_worker_{worker_id}",
                 password="worker1qazcde3",
-                position=position
+                position=position,
             )
 
     def setUp(self) -> None:
@@ -66,7 +66,9 @@ class TaskProjectFormTest(TestCase):
             "name": "testtask",
             "description": "test description",
             "project": project,
-            "deadline": datetime.datetime(year=2023, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key='Europe/Kiev')),
+            "deadline": datetime.datetime(
+                year=2023, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key="Europe/Kiev")
+            ),
             "priority": "Medium",
             "task_type": task_type,
             "assignees": assignees,
@@ -96,19 +98,23 @@ class TaskProjectFormTest(TestCase):
             name="testtask",
             description="test description",
             project=project,
-            deadline=datetime.datetime(year=2023, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key='Europe/Kiev')),
+            deadline=datetime.datetime(
+                year=2023, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key="Europe/Kiev")
+            ),
             priority="Medium",
             task_type=task_type,
         )
 
-        new_deadline = datetime.datetime(year=2025, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key='Europe/Kiev'))
+        new_deadline = datetime.datetime(
+            year=2025, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key="Europe/Kiev")
+        )
 
         response = self.client.post(
-            reverse("manager:task-update-project", kwargs={"pk": task.id, "project_pk": project.pk}),
-            data={
-                "deadline": new_deadline,
-                "project": project.pk
-            }
+            reverse(
+                "manager:task-update-project",
+                kwargs={"pk": task.id, "project_pk": project.pk},
+            ),
+            data={"deadline": new_deadline, "project": project.pk},
         )
         self.assertEqual(response.status_code, 200)
 
@@ -121,7 +127,7 @@ class TaskFormTest(TestCase):
             get_user_model().objects.create_user(
                 username=f"test_worker_{worker_id}",
                 password="worker1qazcde3",
-                position=position
+                position=position,
             )
 
     def setUp(self) -> None:
@@ -141,7 +147,9 @@ class TaskFormTest(TestCase):
         form_data = {
             "name": "testtask",
             "description": "test_description",
-            "deadline": datetime.datetime(year=2023, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key='Europe/Kiev')),
+            "deadline": datetime.datetime(
+                year=2023, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key="Europe/Kiev")
+            ),
             "priority": "Medium",
             "task_type": task_type,
             "assignees": assignees,
@@ -162,18 +170,22 @@ class TaskFormTest(TestCase):
         task = Task.objects.create(
             name="testtask",
             description="test description",
-            deadline=datetime.datetime(year=2024, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key='Europe/Kiev')),
+            deadline=datetime.datetime(
+                year=2024, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key="Europe/Kiev")
+            ),
             priority="Medium",
             task_type=task_type,
         )
 
-        new_deadline = datetime.datetime(year=2022, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key='Europe/Kiev'))
+        new_deadline = datetime.datetime(
+            year=2022, month=9, day=24, tzinfo=zoneinfo.ZoneInfo(key="Europe/Kiev")
+        )
 
         response = self.client.post(
             reverse("manager:task-update", kwargs={"pk": task.id}),
             data={
                 "deadline": new_deadline,
-            }
+            },
         )
         self.assertEqual(response.status_code, 200)
 
@@ -191,20 +203,15 @@ class PositionFormTest(TestCase):
         self.client.force_login(self.user)
 
     def test_create_position_is_valid(self):
-        form_data = {
-            "name": "test position"
-        }
+        form_data = {"name": "test position"}
         form = PositionForm(data=form_data)
 
         self.assertTrue(form.is_valid())
         self.assertEquals(form.cleaned_data, form_data)
 
     def test_create_position_with_non_valid_data(self):
-        form_data = {
-            "name": "test position``1!@$$%$`"
-        }
+        form_data = {"name": "test position``1!@$$%$`"}
         form = PositionForm(data=form_data)
 
         self.assertFalse(form.is_valid())
         self.assertNotEquals(form.cleaned_data, form_data)
-

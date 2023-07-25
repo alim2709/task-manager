@@ -12,10 +12,7 @@ class PublicPositionListTest(TestCase):
         response = self.client.get(POSITION_LIST_URL)
 
         self.assertNotEquals(response.status_code, 200)
-        self.assertRedirects(
-            response,
-            "/accounts/login/?next=/positions/"
-        )
+        self.assertRedirects(response, "/accounts/login/?next=/positions/")
 
 
 class PrivatePositionListTest(TestCase):
@@ -47,10 +44,7 @@ class PrivatePositionListTest(TestCase):
         response = self.client.get(POSITION_LIST_URL)
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(
-            response,
-            "manager/position_list.html"
-        )
+        self.assertTemplateUsed(response, "manager/position_list.html")
 
     def test_correct_pagination_on_first_page(self) -> None:
         response = self.client.get(POSITION_LIST_URL)

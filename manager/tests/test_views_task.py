@@ -12,22 +12,17 @@ class PublicTaskListTest(TestCase):
         response = self.client.get(TASK_LIST_URL)
 
         self.assertNotEquals(response.status_code, 200)
-        self.assertRedirects(
-            response,
-            "/accounts/login/?next=/tasks/"
-        )
+        self.assertRedirects(response, "/accounts/login/?next=/tasks/")
 
 
 class PrivateTaskListTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
-        task_type = TaskType.objects.create(
-            name="Test Task Type"
-        )
+        task_type = TaskType.objects.create(name="Test Task Type")
         project = Project.objects.create(
             name="test project",
             description="test project details",
-            deadline="2024-12-22"
+            deadline="2024-12-22",
         )
         for task_id in range(8):
             Task.objects.create(
@@ -37,7 +32,7 @@ class PrivateTaskListTest(TestCase):
                 is_completed=False,
                 priority="Low",
                 task_type=task_type,
-                project=project
+                project=project,
             )
 
     def setUp(self) -> None:
@@ -61,10 +56,7 @@ class PrivateTaskListTest(TestCase):
         response = self.client.get(TASK_LIST_URL)
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(
-            response,
-            "manager/task_list.html"
-        )
+        self.assertTemplateUsed(response, "manager/task_list.html")
 
     def test_correct_pagination_on_first_page(self) -> None:
         response = self.client.get(TASK_LIST_URL)

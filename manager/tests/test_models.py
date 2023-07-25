@@ -18,10 +18,7 @@ class PositionModelTest(TestCase):
             name="Test Position",
         )
 
-        self.assertEquals(
-            str(position),
-            f"{position.name}"
-        )
+        self.assertEquals(str(position), f"{position.name}")
 
     def test_update_position_with_valid_data(self) -> None:
         position = Position.objects.create(
@@ -55,9 +52,7 @@ class PositionModelTest(TestCase):
         )
 
         self.assertEquals(response.status_code, 302)
-        self.assertFalse(
-            Position.objects.filter(id=position.id).exists()
-        )
+        self.assertFalse(Position.objects.filter(id=position.id).exists())
 
 
 class WorkerModelTest(TestCase):
@@ -74,7 +69,7 @@ class WorkerModelTest(TestCase):
         self.assertEquals(
             str(self.worker),
             f"{self.worker.username} ({self.worker.first_name} "
-            f"{self.worker.last_name})"
+            f"{self.worker.last_name})",
         )
 
     def test_create_worker_with_position(self) -> None:
@@ -95,7 +90,4 @@ class WorkerModelTest(TestCase):
         self.assertEquals(worker.position, position)
 
     def test_worker_get_absolute_url(self) -> None:
-        self.assertEquals(
-            self.worker.get_absolute_url(),
-            "/workers/1/"
-        )
+        self.assertEquals(self.worker.get_absolute_url(), "/workers/1/")

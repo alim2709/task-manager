@@ -8,8 +8,7 @@ from manager.models import Position
 class AdminSiteTests(TestCase):
     def setUp(self) -> None:
         self.super_user = get_user_model().objects.create_superuser(
-            username="test_super_user",
-            password="super1qazcde3"
+            username="test_super_user", password="super1qazcde3"
         )
         self.client.force_login(self.super_user)
         self.position = Position.objects.create(name="Test Position")
