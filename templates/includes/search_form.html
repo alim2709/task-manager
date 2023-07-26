@@ -1,0 +1,7 @@
+{% load crispy_forms_filters %}
+<form class="form-inline d-flex p-2" action="" method="get">
+    {% csrf_token %}
+  <input autocomplete="false" name="hidden" type="text" style="display:none;">
+  {{ search_form|crispy }}
+  <input class="btn btn-secondary" type="submit" value="🔎">
+  </form>
