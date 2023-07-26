@@ -19,3 +19,5 @@ setuptools==67.8.0
 sqlparse==0.4.4
 tzdata==2023.3
 wheel==0.40.0
+dj-database-url==2.0.0
+psycopg2==2.9.6
