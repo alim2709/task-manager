@@ -1,28 +1,64 @@
 {% extends "base-presentation.html" %}
+{% load crispy_forms_filters %}
 
 {% block title %}
   Task Detail
 {% endblock %}
 
 {% block content %}
+  <div class="card-body">
   <br>
   <br>
   <br>
   <br>
-  <h1>{{ task.name }}</h1>
+  <h1>
+    Task details:
+  </h1>
+    <h2 class="text-center">{{ task.name }}</h2>
+
+
+  <h2>Priority: {{ task.priority }}</h2>
   <ul>
-  <p><strong>Description:</strong></p>
-  <p>{{ task.description}}</p>
-  <p><strong>Deadline:</strong></p>
-  <p>{{ task.deadline }}</p>
-  <p><strong>Type:</strong></p>
-  <p>{{ task.task_type }}</p>
-  <p><strong>Team in this task:</strong></p>
+  <p><strong>Description: </strong> {{ task.description}}</p>
+  <p><strong>Deadline:  </strong> {{ task.deadline }}</p>
+  <p><strong>Type:  </strong> {{ task.task_type }}</p>
+    <p>
+      <strong>Project: </strong>
+      {% if task.project %}
+        {{ task.project.name }}
+        {% else %}
+        No info
+      {% endif %}
+    </p>
   </ul>
+  <h3>
+    <strong>Workers in this task:</strong>
+    {% if not task.is_completed %}
+      {% if task in user.tasks.all %}
+        <a href="{% url "manager:toggle-task-assign" pk=task.id %}" class="btn btn-danger float-sm-end">
+        Delete me from this task
+      </a>
+      {% else %}
+      <a href="{% url "manager:toggle-task-assign" pk=task.id %}" class="btn btn-success float-sm-end">
+        Assign me to this task
+      </a>
+      {% endif %}
+    {% endif %}
+  </h3>
+{% if not task.assignees.all %}
+  <p>No workers at this task for this moment</p>
+{% endif %}
   {% for worker in task.assignees.all %}
     <ul>
     <li><strong>Username: </strong>{{ worker.username }}   <strong>Position: </strong>{{ worker.position.name }}</li>
     </ul>
   {% endfor %}
+   {% include "includes/messages.html" %}
+    {% if not task.is_completed %}
+      <a href="{% url "manager:task-complete" pk=task.id %}" class="btn btn-primary">Finish task</a>
+      {% else %}
+      <h4>Status task: completed</h4>
+    {% endif %}
+</div>
 
 {% endblock %}
