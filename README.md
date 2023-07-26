@@ -4,12 +4,7 @@ Django project for managing projects, teams, tasks and workers in Task Manager
 
 ## Check it out
 
-User for testing:
 
-```shell
-username: user
-password: pass123word
-```
 
 ## Installation
 
@@ -22,6 +17,17 @@ python3 -m venv venv
 venv\Scripts\activate (on Windows)
 source venv/bin/activate (on macOS)
 pip install -r requirements.txt
+```
+
+Environment Variables
+
+The following environment variables should be set in the .env file:
+
+SECRET_KEY: Your  secret key
+
+Note: Before starting the project, make a copy of the .env_sample file and rename it to .env. Replace the sample values with your actual environment variable values.
+```shell
+python manage.py migrate
 python3 manage.py runserver
 ```
 
