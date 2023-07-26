@@ -1,0 +1,28 @@
+{% extends "base-presentation.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+ <div class="offset-lg-2">
+    <br><br><br><br>
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-header pb-0">
+        <h1 class="text-center">Create Task for Project</h1>
+      </div>
+          <div class="card-body">
+            <form action="" method="post">
+             {% csrf_token %}
+               <div class="mb-3"><p>{{ form.name | as_crispy_field }}</p></div>
+                <div class="mb-3"><p>{{ form.description | as_crispy_field}}</p></div>
+                <div class="mb-3"><p>{{ form.deadline | as_crispy_field}}</p></div>
+                <div class="mb-3"><p>{{ form.priority | as_crispy_field}}</p></div>
+                <div class="mb-3"><p>{{ form.task_type | as_crispy_field}}</p></div>
+                <div class="mb-3"><p>{{ form.assignees | as_crispy_field}}</p></div>
+                <div class="mb-3"><p>{{ form.project | as_crispy_field}}</p></div>
+              <input type="submit" value="Submit" class="btn btn-primary">
+            </form>
+          </div>
+      </div>
+  </div>
+ </div>
+{% endblock %}
