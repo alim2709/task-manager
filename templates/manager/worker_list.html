@@ -1,14 +1,14 @@
 {% extends "base-presentation.html" %}
-
+{% block title %}
+Workers
+{% endblock %}
 
 {% block content %}
-  <br>
-  <br>
-  <br>
-  <br>
-
+  <div class="card-body">
+  <br><br><br><br>
   <h2>
       Worker List
+    {% include "includes/search_form.html" %}
     </h2>
   {% if worker_list %}
   <table class="table">
@@ -23,14 +23,33 @@
   <tr>
         <td>{{ worker.id }}</td>
         <td><a href="{{ worker.get_absolute_url }}">{{ worker.username }} {% if user == worker %} (Me){% endif %}</a></td>
-        <td>{{ worker.first_name }}</td>
-        <td>{{ worker.last_name }}</td>
-        <td>{{ worker.position.name }}</td>
+        <td>
+          {% if worker.first_name %}
+            {{ worker.first_name }}
+            {% else %}
+            <strong>NO info</strong>
+          {% endif %}
+        </td>
+        <td>
+          {% if worker.last_name %}
+            {{ worker.last_name }}
+            {% else %}
+            <strong>NO info</strong>
+          {% endif %}
+
+        </td>
+        <td>
+          {% if worker.position.name %}
+            {{ worker.position.name }}
+            {% else %}
+            <strong>NO info</strong>
+          {% endif %}
+        </td>
   </tr>
   {% endfor %}
   </table>
     {% else %}
     <p>There are no workers in the service.</p>
   {% endif %}
+  </div>
 {% endblock %}
-
