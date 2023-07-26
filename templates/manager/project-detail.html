@@ -1,0 +1,79 @@
+{% extends "base-presentation.html" %}
+{% block title %}
+  Project
+{% endblock %}
+
+
+{% block content %}
+<div class="card-body">
+  <br><br><br><br>
+  <h1>Project details:</h1>
+   <h3 class="fw-light">Project name: {{ project.name }}</h3>
+    <h4 class="fw-light">Deadline: {{ project.deadline }}</h4>
+    <ul>
+      <li>
+        <strong>Description: </strong>
+        {{ project.description }}
+      </li>
+      <li><strong>Team{{ project.team.all|pluralize }} in project: </strong>
+        {% for team in project.team.all %}
+        <p><strong>{{ team.name }}</strong></p>
+        {% endfor %}
+
+      </li>
+      <li>
+        <strong>Status: </strong>
+        {% if project.is_completed %}
+         Project is Finished!
+          {% else %}
+          On process
+        {% endif %}
+      </li>
+    </ul>
+    <h4>
+      {% if not project.is_completed %}
+      TO DO list: <a href="{% url "manager:task-project-create" project_pk=project_pk %}" class="btn btn-primary float-lg-end">Add task for project</a>
+        </h4>
+        {% if not project.tasks.all %}
+         <h5>No tasks at this moment!</h5>
+          {% else %}
+          <table class="table table-striped">
+          <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Deadline for task</th>
+        <th>Is completed</th>
+        <th>Type</th>
+        <th>Update</th>
+      </tr>
+          {% for task in project.tasks.all %}
+            <tr>
+              <td>{{ task.id }}</td>
+              <td><a href="{% url "manager:task-detail" pk=task.id %}">{{ task.name }}</a></td>
+              <td>{{ task.deadline }}</td>
+              <td>
+                {% if task.is_completed %}
+                  Yes
+                  {% else %}
+                  No
+                {% endif %}
+              </td>
+              <td>
+                {{ task.task_type }}
+              </td>
+              <td>
+                <a class="btn btn-secondary" href="{% url "manager:task-update-project" pk=task.id project_pk=project.pk%}">Update</a>
+              </td>
+
+            </tr>
+
+          {% endfor %}
+           </table>
+        {% endif %}
+      {% endif %}
+    {% if not   project.is_completed %}
+    {% include "includes/messages.html" %}
+    <a class="btn btn-primary" href="{% url "manager:project_completed" pk=project.id %}">Finish Project</a>
+    {% endif %}
+</div>
+{% endblock %}
