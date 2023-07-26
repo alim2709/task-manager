@@ -1,33 +1,86 @@
 {% extends "base-presentation.html" %}
-
+{% block title %}
+  Worker
+{% endblock %}
 {% block content %}
-  <br>
-  <br>
-  <br>
-  <br>
-  <h1>Username: {{ worker.username }}</h1>
-  <p><strong>First name:</strong> {{ worker.first_name }}</p>
-  <p><strong>Last name:</strong> {{ worker.last_name }}</p>
-  <p><strong>Position:</strong> {{ worker.position.name }}</p>
+  <div class="card-body">
+  <br><br><br><br>
+  <h1>
+    Username: {{ worker.username }}
+    <a href="{% url "manager:worker-update" pk=worker.id %}" class="btn btn-primary">Update info</a>
+  </h1>
+  <p>
+    <strong>First name:</strong>
+    {% if worker.first_name %}
+      {{ worker.first_name }}
+      {% else %}
+      <strong>No info</strong>
+    {% endif %}
+  </p>
+  <p>
+    <strong>Last name:</strong>
+    {% if worker.last_name %}
+      {{ worker.last_name }}
+     {% else %}
+      <strong>No info</strong>
+    {% endif %}
+  </p>
+  <p>
+    <strong>Position:</strong>
+    {% if worker.position.name %}
+      {{ worker.position.name }}
+      {% else %}
+      <strong>No info</strong>
+    {% endif %}
+  </p>
+  <p>
+    <strong>Email:</strong>
+    {% if worker.email %}
+      {{ worker.email }}
+      {% else %}
+      <strong>No info</strong>
+    {% endif %}
+  </p>
   <div>
-    <h4>Completed tasks:</h4>
-    {% for task in worker.tasks.all %}
-      {% if task.is_completed %}
-        <p>{{ task.name }}</p>
-        {% else %}
-        <p>No completed task!</p>
-      {% endif %}
-    {% empty %}
-        <p>No tasks!</p>
-    {% endfor %}
-    <h4>Tasks in process now:</h4>
-      {% for task in worker.tasks.all %}
-        {% if not task.is_complited %}
-          <p>{{ task.name }}</p>
-          <p><strong>Deadline: {{ task.deadline }}</strong></p>
-        {% endif %}
-        {% empty %}
-          <p>No tasks!</p>
-      {% endfor %}
+    <h3>Assigned tasks:</h3>
+  {% if  worker.tasks.all %}
+      <table class="table">
+         <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Deadline</th>
+            <th>Priority</th>
+            <th>Completed</th>
+            <th>Task Type</th>
+        </tr>
+         {% for task in worker.tasks.all %}
+           <tr>
+            <td>{{ task.id }}</td>
+            <td>
+              <a href="{% url "manager:task-detail" pk=task.id %}">{{ task.name }}</a>
+            </td>
+            <td>
+              {{ task.deadline }}
+            </td>
+            <td>
+              {{ task.priority }}
+            </td>
+            <td>
+              {% if task.is_completed %}
+                Yes
+                {% else %}
+                No
+              {% endif %}
+            </td>
+            <td>
+              {{ task.task_type.name }}
+            </td>
+           </tr>
+         {% endfor %}
+       </table>
+    {% else %}
+    <h6>No tasks for this moment</h6>
+{% endif %}
+  </div>
   </div>
 {% endblock %}
