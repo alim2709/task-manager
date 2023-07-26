@@ -480,7 +480,9 @@ def contact(request):
             return redirect("main:homepage")
     messages.error(
         request,
-        ("It`s necessary to complete all tasks " "of project before finishing project"),
+        (
+            "It`s necessary to complete all tasks " "of project before finishing project"
+        ),
     )
 
     form = ContactForm()
