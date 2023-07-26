@@ -4,7 +4,7 @@ Django project for managing projects, teams, tasks and workers in Task Manager
 
 ## Check it out
 
-
+[Task Manager Deployed to Render]
 
 ## Installation
 
