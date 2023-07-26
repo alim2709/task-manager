@@ -1,0 +1,22 @@
+{% extends "base-presentation.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+ <div class="offset-lg-2">
+ <br><br><br><br>
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-header pb-0">
+        <h1 class="text-center">{{ object|yesno:"Update,Create" }} Position</h1>
+      </div>
+      <div class="card-body">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+        </div>
+    </div>
+  </div>
+ </div>
+{% endblock %}
