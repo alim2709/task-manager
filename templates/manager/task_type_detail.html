@@ -1,0 +1,34 @@
+{% extends "base-presentation.html" %}
+{% block title %}
+  Task Type Detail
+{% endblock %}
+{% block content %}
+  <br><br><br><br>
+  <div class="card-body">
+    <h1>Task Type  "{{ task_type_detail.name }}"  has several Tasks</h1>
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Deadline</th>
+      <th>Status</th>
+    </tr>
+    {% for task in task_type_detail.tasks.all %}
+      <tr>
+        <td>
+          <a href="{% url "manager:task-detail" pk=task.id %}">{{ task.name }}</a>
+        </td>
+        <td>
+          {{ task.deadline }}
+        </td>
+        <td>
+          {% if task.is_completed %}
+            Finished
+            {% else %}
+            On process
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+  </div>
+{% endblock %}
