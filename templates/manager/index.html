@@ -10,7 +10,7 @@
 {% block content %}
 
   <header class="header-2">
-    <div class="page-header section-height-75 relative" style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved-11.jpg')">
+    <div class="page-header section-height-75 relative" style="background-image: url('{{ ASSETS_ROOT }}/img/annie-spratt.jpg')">
       <div class="container">
         <div class="row">
           <div class="col-lg-7 text-center mx-auto">
@@ -49,25 +49,25 @@
           <div class="row">
             <div class="col-md-4 position-relative">
               <div class="p-3 text-center">
-                <h1 class="text-gradient text-primary"><span id="state1" countTo="{{ num_workers }}">0</span>+</h1>
-                <h5 class="mt-3"><a href="{% url "manager:worker-list" %}">Workers</a></h5>
-                <p class="text-sm">......</p>
+                <h1 class="text-gradient text-primary"><span id="state1" countTo="{{ num_projects }}">0</span>+</h1>
+                <h5 class="mt-3"><a href="{% url "manager:project-list" %}">Projects</a></h5>
+                <p class="text-sm">Create projects with different teams and add tasks as much as you wish</p>
               </div>
               <hr class="vertical dark">
             </div>
             <div class="col-md-4 position-relative">
               <div class="p-3 text-center">
-                <h1 class="text-gradient text-primary"> <span id="state2" countTo="{{ num_tasks }}">0</span>+</h1>
-                <h5 class="mt-3"><a href="{% url "manager:task-list"%}">Tasks</a></h5>
-                <p class="text-sm">......</p>
+                <h1 class="text-gradient text-primary"> <span id="state2" countTo="{{ num_teams }}">0</span>+</h1>
+                <h5 class="mt-3"><a href="{% url "manager:team-list"%}">Teams</a></h5>
+                <p class="text-sm">Be a member or create your own team!</p>
               </div>
               <hr class="vertical dark">
             </div>
             <div class="col-md-4">
               <div class="p-3 text-center">
                 <h1 class="text-gradient text-primary" id="state3" countTo="{{ task_is_done_true }}">0</h1>
-                <h5 class="mt-3">Completed Tasks</h5>
-                <p class="text-sm">.....</p>
+                <h5 class="mt-3"><a href="{% url "manager:completed-tasks" %}">Completed Tasks</a></h5>
+                <p class="text-sm">Here we go, don`t stop solving tasks!</p>
               </div>
             </div>
           </div>
