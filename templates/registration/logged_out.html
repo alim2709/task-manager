@@ -4,7 +4,9 @@ Logged Out
 {% endblock %}
 
 {% block content %}
-<p>Logged out!</p>
 
-<a class="btn btn-primary" href="{% url 'login'%}">Click here to login again.</a>
+  <div class="card-body">
+    <p>Logged out!</p>
+    <a class="btn btn-primary" href="{% url 'login'%}">Click here to login again.</a>
+  </div>
 {% endblock %}
