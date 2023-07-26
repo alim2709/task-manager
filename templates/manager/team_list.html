@@ -1,0 +1,45 @@
+{% extends "base-presentation.html" %}
+{% block title %}
+Teams
+{% endblock %}
+
+{% block content %}
+  <br><br><br><br>
+  <div class="card-body">
+    <h1>
+      Team List
+      {% include "includes/search_form.html" %}
+      <a class="btn btn-primary float-lg-end" href="{% url "manager:team-create" %}">Add new Team</a>
+    </h1>
+    {% if team_list %}
+
+      <table class="table table-striped">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Projects</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+        {% for team in team_list %}
+          <tr>
+            <td>{{ team.id }}</td>
+            <td><a href="{% url "manager:team-detail" pk=team.id %}">{{ team.name }}</a></td>
+            <td>
+              {% for project in team.projects.all %}
+                <p>{{ project.name }}</p>
+              {% endfor %}
+            </td>
+            <td><a class="btn btn-secondary" href="{% url "manager:team-update" pk=team.id %}">Update</a></td>
+            <td><a class="btn btn-danger" href="{% url "manager:team-delete" pk=team.id %}">Delete</a></td>
+          </tr>
+        {% endfor %}
+
+
+      </table>
+      {% else %}
+       <p>No Created teams at this moment</p>
+
+    {% endif %}
+  </div>
+{% endblock %}
