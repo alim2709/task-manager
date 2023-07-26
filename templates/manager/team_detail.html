@@ -24,11 +24,16 @@ Team
     {% for member in team.members.all %}
       <p>Username: {{ member.username }} (position: {{ member.position }})</p>
     {% endfor %}
+
+
+
     <h3>Team's Project{{ team.projects.all|pluralize }}</h3>
+    {% if team.projects.all%}
       {% for project in team.projects.all %}
         <p><a href="{% url "manager:team-detail" pk=project.id%}">{{ project.name }}</a></p>
       {% endfor %}
-
-
+      {% else %}
+      No Projects at this moment
+    {% endif %}
   </div>
 {% endblock %}

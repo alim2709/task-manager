@@ -3,6 +3,9 @@
 Projects
 {% endblock %}
 {% block content %}
+
+
+
   <br><br><br><br>
   <div class="card-body">
   <h1>
@@ -45,8 +48,11 @@ Projects
             </td>
           </tr>
       {% endfor %}
-
       </table>
+      {% else  %}
+    No projects at this moment
     {% endif %}
   </div>
+
+
 {% endblock %}
