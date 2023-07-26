@@ -1,0 +1,30 @@
+{% extends "base-presentation.html" %}
+{% block title %}
+  Positions
+{% endblock %}
+{% block content %}
+  <div class="card-body">
+  <br><br><br><br>
+  <h1>
+    Position list
+    {% include "includes/search_form.html" %}
+    <a href="{% url "manager:position-create"%}" class="btn btn-primary float-lg-end">Create New Position</a>
+  </h1>
+  <table class="table table-striped">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+  {% for position in position_list %}
+    <tr>
+      <td>{{ position.id }}</td>
+      <td>{{ position.name }}</td>
+      <td><a class="btn btn-secondary" href="{% url "manager:position-update" pk=position.id %}">Update</a></td>
+      <td><a href="{% url "manager:position-delete" pk=position.id %}" class="btn btn-danger">Delete</a></td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+{% endblock %}
