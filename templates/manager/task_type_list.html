@@ -1,0 +1,37 @@
+{% extends "base-presentation.html" %}
+
+{% block title %}
+  Task Types
+{% endblock %}
+
+{% block content %}
+  <div class="card-body">
+  <br><br><br><br>
+  <h1>
+    Task type list
+    {% include "includes/search_form.html" %}
+    <a href="{% url "manager:task-type-create"%}" class="btn btn-primary float-lg-end">Add Task Type</a>
+  </h1>
+  {% if task_type_list %}
+  <table class="table table-striped">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+
+    {% for task_type in task_type_list %}
+    <tr>
+        <td>{{ task_type.id }}</td>
+        <td><a href="{% url "manager:task-type-detail" pk=task_type.id %}">{{ task_type.name }}</a></td>
+        <td><a href="{% url "manager:task-type-update" pk=task_type.id %}" class="btn btn-secondary">Update</a></td>
+
+        <td><a href="{% url "manager:task-type-delete" pk=task_type.id %}" class="btn btn-danger">Delete</a></td>
+  {% endfor %}
+    </table>
+    {% else %}
+    <p>There are no tasks in the service.</p>
+  {% endif %}
+  </div>
+{% endblock %}
