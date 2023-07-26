@@ -1,0 +1,52 @@
+{% extends "base-presentation.html" %}
+{% block title %}
+Projects
+{% endblock %}
+{% block content %}
+  <br><br><br><br>
+  <div class="card-body">
+  <h1>
+    Project list:
+    {% include "includes/search_form.html" %}
+    <a href="{% url "manager:project-create" %}" class="btn btn-primary float-lg-end">Create new project</a>
+  </h1>
+    {% if project_list %}
+      <table class="table table-striped">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Teams</th>
+          <th>Deadline of Project</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      {% for project in project_list %}
+          <tr>
+            <td>
+              {{ project.id }}
+            </td>
+            <td>
+              <a href="{% url "manager:project-detail" pk=project.id %}">{{ project.name }}</a>
+            </td>
+            <td>
+              {% for team in project.team.all %}
+                <p><a href="{% url "manager:team-detail" pk=team.id %}">{{ team.name }}</a></p>
+              {% endfor %}
+
+            </td>
+            <td>
+              {{ project.deadline }}
+            </td>
+            <td>
+              <a href="{% url "manager:project-update" pk=project.id %}" class="btn btn-secondary">Update</a>
+            </td>
+            <td>
+              <a href="{% url "manager:project-delete" pk=project.id %}" class="btn btn-danger">Delete</a>
+            </td>
+          </tr>
+      {% endfor %}
+
+      </table>
+    {% endif %}
+  </div>
+{% endblock %}
