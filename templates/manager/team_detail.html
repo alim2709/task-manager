@@ -1,0 +1,34 @@
+{% extends "base-presentation.html" %}
+{% block title %}
+Team
+{% endblock %}
+{% block content %}
+  <br><br><br><br>
+  <div class="card-body">
+    <h1>Team details</h1>
+    <h3 class="text-center">{{ team.name }}</h3>
+    <h3>
+      Team members:
+
+      {% if team in user.teams.all %}
+        <a href="{% url "manager:toggle-team-assign" pk=team.id %}" class="btn btn-danger float-sm-end">
+        Delete me from this team
+      </a>
+      {% else %}
+      <a href="{% url "manager:toggle-team-assign" pk=team.id %}" class="btn btn-success float-sm-end">
+        Assign me to this team
+      </a>
+      {% endif %}
+
+    </h3>
+    {% for member in team.members.all %}
+      <p>Username: {{ member.username }} (position: {{ member.position }})</p>
+    {% endfor %}
+    <h3>Team's Project{{ team.projects.all|pluralize }}</h3>
+      {% for project in team.projects.all %}
+        <p><a href="{% url "manager:team-detail" pk=project.id%}">{{ project.name }}</a></p>
+      {% endfor %}
+
+
+  </div>
+{% endblock %}
