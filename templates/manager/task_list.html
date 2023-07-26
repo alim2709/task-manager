@@ -3,21 +3,26 @@
   Tasks
 {% endblock %}
 {% block content %}
+  <div class="card-body">
   <br>
   <br>
   <br>
   <br>
   <h2>
       Task List
+    {% include "includes/search_form.html" %}
+    <a href="{% url "manager:task-create"%}" class="btn btn-primary float-lg-end">Create New Task</a>
     </h2>
   {% if task_list %}
-  <table class="table">
+  <table class="table table-striped">
       <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Deadline</th>
         <th>Is completed</th>
         <th>Type</th>
+        <th>Update</th>
+        <th>Delete</th>
       </tr>
 
     {% for task in task_list %}
@@ -31,10 +36,13 @@
           No
         {% endif %} </td>
         <td>{{ task.task_type.name }}</td>
+        <td><a href="{% url "manager:task-update" pk=task.id %}" class="btn btn-secondary">Update</a></td>
+        <td><a href="{% url "manager:task-delete" pk=task.id %}" class="btn btn-danger">Delete</a></td>
   </tr>
   {% endfor %}
     </table>
     {% else %}
     <p>There are no tasks in the service.</p>
   {% endif %}
+  </div>
 {% endblock %}
