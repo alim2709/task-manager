@@ -1,0 +1,16 @@
+{% extends "base-presentation.html" %}
+{% block title %}
+Completed tasks
+{% endblock %}
+
+{% block content %}
+  <br><br><br><br>
+
+  <div class="card-body">
+  <h1>Completed Tasks!</h1>
+  {% for task in task_list %}
+  <div class="mb-3"><a href="{% url "manager:task-detail" pk=task.id %}">{{ task.name }}</a></div>
+  {% endfor %}
+
+  </div>
+{% endblock %}
