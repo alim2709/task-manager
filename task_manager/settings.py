@@ -15,13 +15,10 @@ from django.contrib.messages import constants as messages
 from dotenv import load_dotenv
 import dj_database_url
 
-
 load_dotenv()
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -33,8 +30,11 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
+ALLOWED_HOSTS = ["127.0.0.1"]
 
-ALLOWED_HOSTS = ["127.0.0.1", "https://task-manager-fn50.onrender.com/"]
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -110,7 +110,6 @@ DATABASES = {
     }
 }
 
-
 # dj-database-url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)
@@ -145,7 +144,6 @@ TIME_ZONE = "Europe/Kiev"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
