@@ -22,3 +22,4 @@ wheel==0.40.0
 dj-database-url==2.0.0
 psycopg2==2.9.6
 whitenoise==6.5.0
+gunicorn==21.2.0
