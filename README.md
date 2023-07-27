@@ -4,7 +4,15 @@ Django project for managing projects, teams, tasks and workers in Task Manager
 
 ## Check it out
 
-[Task Manager Deployed to Render]
+[Task Manager Deployed to Render](https://task-manager-fn50.onrender.com/)
+
+
+User for testing:
+
+```shell
+username: jacob_circle
+password: test123password
+```
 
 ## Installation
 
